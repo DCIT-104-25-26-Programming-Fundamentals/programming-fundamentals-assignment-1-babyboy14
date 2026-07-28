@@ -59,4 +59,92 @@
 # =============================================================================
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
+def read_matrix(rows, cols):
+    matrix = []
+    for i in range(rows):
+        row_str = input(f"Enter row {i + 1}: ")
+        row = [float(x) for x in row_str.split()]
+        matrix.append(row)
+    return matrix
 
+
+def print_matrix(matrix):
+    for row in matrix:
+        for val in row:
+            formatted_val = (
+                f"{int(val):>4}" if val.is_integer() else f"{val:>6.2f}"
+            )
+            print(formatted_val, end=" ")
+        print()
+
+
+def transpose_matrix(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    transposed = [[0 for _ in range(rows)] for _ in range(cols)]
+
+    for i in range(rows):
+        for j in range(cols):
+            transposed[j][i] = matrix[i][j]
+
+    return transposed
+
+
+def add_matrices(mat_a, mat_b):
+    rows = len(mat_a)
+    cols = len(mat_a[0])
+    result = [[0 for _ in range(cols)] for _ in range(rows)]
+
+    for i in range(rows):
+        for j in range(cols):
+            result[i][j] = mat_a[i][j] + mat_b[i][j]
+
+    return result
+
+
+def multiply_matrices(mat_a, mat_b):
+    rows_a = len(mat_a)
+    cols_a = len(mat_a[0])
+    cols_b = len(mat_b[0])
+
+    result = [[0 for _ in range(cols_b)] for _ in range(rows_a)]
+
+    for i in range(rows_a):
+        for j in range(cols_b):
+            for k in range(cols_a):
+                result[i][j] += mat_a[i][k] * mat_b[k][j]
+
+    return result
+
+
+def main():
+    print("--- PART A: Transpose ---")
+    r = int(input("Enter number of rows: "))
+    c = int(input("Enter number of columns: "))
+    print(f"Enter matrix ({r}x{c}):")
+    mat_a = read_matrix(r, c)
+
+    print("\nOriginal Matrix:")
+    print_matrix(mat_a)
+
+    print("\nTransposed Matrix:")
+    print_matrix(transpose_matrix(mat_a))
+
+    print("\n--- PART B: Matrix Addition ---")
+    print(f"Enter second matrix of same size ({r}x{c}):")
+    mat_b = read_matrix(r, c)
+
+    print("\nMatrix A + Matrix B:")
+    print_matrix(add_matrices(mat_a, mat_b))
+
+    print("\n--- PART C: Matrix Multiplication ---")
+    p = int(input(f"Enter number of columns for Matrix B (rows = {c}): "))
+    print(f"Enter Matrix B ({c}x{p}):")
+    mat_c = read_matrix(c, p)
+
+    print("\nMatrix A x Matrix B:")
+    print_matrix(multiply_matrices(mat_a, mat_c))
+
+
+if __name__ == "__main__":
+    main()

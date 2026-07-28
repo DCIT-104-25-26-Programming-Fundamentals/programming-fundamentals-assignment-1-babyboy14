@@ -39,3 +39,60 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def calc_sum(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total
+
+
+def calc_average(numbers):
+    return calc_sum(numbers) / len(numbers)
+
+
+def calc_max(numbers):
+    maximum = numbers[0]
+    for num in numbers:
+        if num > maximum:
+            maximum = num
+    return maximum
+
+
+def calc_min(numbers):
+    minimum = numbers[0]
+    for num in numbers:
+        if num < minimum:
+            minimum = num
+    return minimum
+
+
+def main():
+    try:
+        n = int(input("How many numbers? "))
+        
+        if n <= 0:
+            print("Error: Number of elements must be greater than 0.")
+            return
+
+        numbers = []
+        for i in range(1, n + 1):
+            val = float(input(f"Enter number {i}: "))
+            numbers.append(val)
+
+        print("\nResults:")
+        # If numbers are integers, format output as integers; otherwise display normally
+        sum_val = calc_sum(numbers)
+        max_val = calc_max(numbers)
+        min_val = calc_min(numbers)
+        
+        print(f"Sum:     {int(sum_val) if sum_val.is_integer() else sum_val}")
+        print(f"Average: {calc_average(numbers)}")
+        print(f"Maximum: {int(max_val) if max_val.is_integer() else max_val}")
+        print(f"Minimum: {int(min_val) if min_val.is_integer() else min_val}")
+
+    except ValueError:
+        print("Error: Please enter valid numerical values.")
+
+
+if __name__ == "__main__":
+    main()
